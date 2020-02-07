@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'single/static/css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <h2>Hello, {{request.session.first_name}}!</h2>
+    <a href="/wishes/logout">Logout</a>
+    <a href="/wishes/stats"><button>View stats</button></a>
+    <a href="wishes/new"><button>Make a wish!</button></a>
+
+    <h4>Your wish list:</h4>
+    <table style="width:50%">
+        <tr>
+            <th>Title</th>
+            <th>Date added</th>
+            <th>Actions</th>
+        </tr>
+        {% for wish in all_wishes %}
+        {% if wish.granted == False and wish.creator.id == request.session.id %}
+        <tr>
+            <td>{{wish.title}}</td>
+            <td>{{wish.created_at}}</td>
+            <td><a href="/wishes/remove/{{wish.id}}">Remove</a> | <a href="/wishes/edit/{{wish.id}}">Edit</a> | <a
+                    href="/wishes/granted/{{wish.id}}">Granted!</a></td>
+        </tr>
+        {% endif %}
+            {% endfor %}
+    </table>
+
+
+    </br></br>
+
+    <table style="width:50%">
+        <h3>Granted wishes:</h3>
+
+        <tr>
+            <th>Title</th>
+            <th>Wisher</th>
+            <th>Date added</th>
+            <th>Date Granted</th>
+            <th>Likes!</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for wish in all_wishes %}
+        <tr>
+            <td>{{wish.title}}</td>
+            <td>{{wish.creator.first_name}}</td>
+            <td>{{wish.created_at}}</td>
+            <td>{{wish.granted_at}}</td>
+            <td>{{wish.like.all | length}}</td>
+            <td><a href="/wishes/like/{{wish.id}}">Like</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    
+
+
+
+    
+    
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

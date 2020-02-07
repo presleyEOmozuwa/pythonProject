@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .formTwo {
+            border: 2px solid lightgrey;
+            padding-top: 50px;
+            padding-right: 30px;
+            padding-left: 30px;
+            height: 300px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 my-2 content-header">
+                <a href="/wishes/new/logout">Log Out</a>
+                <h2>Hello, {{request.session.first_name}}! Make a wish</h2>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6 formOne">
+                <form action="/wishes/update/{{wish_to_edit.id}}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for='title'>I wish for</label>
+                        <input class="form-control" type="text" id='title'>
+                    </div>
+                    <div class="form-group">
+                        <label for='description'>Description</label>
+                        <input class="form-control" type="text" id='description'>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Update</button>
+                </form>
+                <div>
+                    {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>

@@ -1,0 +1,77 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .formOne{
+            border: 2px solid lightgrey;
+            padding-top: 50px;
+            padding-right: 30px;
+            padding-left: 30px;
+            height: 300px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 my-2 content-header">
+                <p>Click Here to Register <a href="/">Register</a></p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6 formOne">
+                <form action='/login' method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for='email'>Email</label>
+                        <input class="form-control" type="text" id='email'>
+                    </div>
+                    <div class="form-group">
+                        <label for='password'>Password</label>
+                        <input class="form-control" type='password' id='password'>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+                <div>
+                    {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
